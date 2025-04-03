@@ -8,6 +8,7 @@ import MovieCard from '../MovieCard/MovieCard';
 import Input from '../Input/Input';
 
 import './MoovieGrid.scss';
+import Swal from 'sweetalert2';
 
 const MoovieGrid = props => {
 
@@ -95,9 +96,18 @@ const MovieSearch = props => {
 
     const goToSearch = useCallback(
         () => {
-            if (keyword.trim().length > 0) {
+            if (props.category && category[props.category]) {
+                if (keyword.trim().length > 0) {
                 navigate(`/${category[props.category]}/search/${keyword}`);
             }
+            } else {
+                console.log("hello")
+                Swal.fire({
+                    title: "Select Category (Movies or Tv Series)",
+                    icon:"error",
+                })
+            }
+            
         },
         [keyword, props.category, navigate]
     );
